@@ -58,6 +58,50 @@
             opacity: 0.9;
         }
 
+        .welcome-message {
+            background: linear-gradient(135deg, #e7f3ff 0%, #d0e8f2 100%);
+            border-left: 5px solid #0056b3;
+            padding: 30px;
+            margin: 30px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 86, 179, 0.1);
+        }
+
+        .welcome-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .welcome-icon {
+            font-size: 32px;
+            color: #0056b3;
+            flex-shrink: 0;
+        }
+
+        .welcome-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #003d82;
+            margin: 0;
+        }
+
+        .welcome-content {
+            color: #003d82;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .welcome-content p {
+            margin-bottom: 12px;
+        }
+
+        .welcome-content p:last-child {
+            margin-bottom: 0;
+        }
+
         .form-container {
             padding: 40px 20px;
         }
@@ -270,6 +314,27 @@
                 font-size: 14px;
             }
 
+            .welcome-message {
+                margin: 20px;
+                padding: 20px;
+            }
+
+            .welcome-header {
+                gap: 12px;
+            }
+
+            .welcome-icon {
+                font-size: 28px;
+            }
+
+            .welcome-title {
+                font-size: 16px;
+            }
+
+            .welcome-content {
+                font-size: 13px;
+            }
+
             .form-container {
                 padding: 20px;
             }
@@ -315,6 +380,20 @@
             <div class="logo-placeholder">🌍</div>
             <h1>Horizon Atlas</h1>
             <p>Formulaire de Demande de Visa Visiteur Canada</p>
+        </div>
+
+        <!-- Welcome Message -->
+        <div class="welcome-message">
+            <div class="welcome-header">
+                <div class="welcome-icon">ℹ️</div>
+                <h2 class="welcome-title">Bienvenue chez Horizon Atlas</h2>
+            </div>
+            <div class="welcome-content">
+                <p>Bonjour et bienvenue chez Horizon Atlas.</p>
+                <p>Afin de nous permettre de finaliser efficacement votre demande de Visa Visiteur Canada, nous vous invitons à remplir soigneusement toutes les informations demandées dans ce formulaire.</p>
+                <p>Veuillez fournir des informations exactes et complètes. Les renseignements recueillis seront utilisés uniquement dans le cadre du traitement de votre dossier de visa.</p>
+                <p>Merci pour votre confiance.</p>
+            </div>
         </div>
 
         <!-- Form Container -->
