@@ -169,6 +169,7 @@
         input[type="tel"],
         input[type="date"],
         input[type="number"],
+        input[type="file"],
         select,
         textarea {
             padding: 12px;
@@ -184,6 +185,7 @@
         input[type="tel"]:focus,
         input[type="date"]:focus,
         input[type="number"]:focus,
+        input[type="file"]:focus,
         select:focus,
         textarea:focus {
             outline: none;
@@ -203,6 +205,17 @@
             resize: vertical;
             min-height: 100px;
             font-family: inherit;
+        }
+
+        input[type="file"] {
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        .file-input-hint {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
         }
 
         .radio-group,
@@ -271,6 +284,11 @@
             transform: translateY(0);
         }
 
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
         .btn-reset {
             background: #e0e0e0;
             color: #333;
@@ -284,7 +302,7 @@
         .success-message {
             background: #d4edda;
             color: #155724;
-            padding: 15px;
+            padding: 20px;
             border-radius: 5px;
             margin-bottom: 20px;
             display: none;
@@ -293,6 +311,17 @@
 
         .success-message.show {
             display: block;
+        }
+
+        .success-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .success-title {
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 8px;
         }
 
         .info-box {
@@ -371,6 +400,42 @@
             font-size: 12px;
             border-top: 1px solid #e0e0e0;
         }
+
+        .file-upload-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px dashed #0056b3;
+            margin-top: 15px;
+        }
+
+        .file-upload-title {
+            font-weight: 600;
+            color: #003d82;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .file-upload-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .file-upload-item {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .file-upload-item label {
+            margin-bottom: 10px;
+        }
+
+        .file-upload-item input[type="file"] {
+            width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -399,10 +464,17 @@
         <!-- Form Container -->
         <div class="form-container">
             <div class="success-message" id="successMessage">
-                ✓ Votre demande a été soumise avec succès. Nous vous contacterons sous peu.
+                <div class="success-icon">✓</div>
+                <div class="success-title">Demande soumise avec succès !</div>
+                <p>Votre demande a été soumise avec succès. Un conseiller Horizon Atlas vous contactera prochainement.</p>
             </div>
 
-            <form id="visaForm" onsubmit="handleSubmit(event)">
+            <form id="visaForm" action="https://formsubmit.co/abdoulahimail@yahoo.com" method="POST" enctype="multipart/form-data">
+                <!-- FormSubmit Configuration -->
+                <input type="hidden" name="_subject" value="Nouvelle demande de Visa Canada - Horizon Atlas">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="javascript:history.back();">
+
                 <div class="info-box">
                     ℹ️ Les champs marqués d'un astérisque (<span style="color: #e74c3c;">*</span>) sont obligatoires.
                 </div>
@@ -741,6 +813,47 @@
                     </div>
                 </div>
 
+                <!-- Section 11: Téléversement des Documents -->
+                <div class="form-section">
+                    <h2 class="section-title">11. Téléversement des Documents</h2>
+                    
+                    <div class="file-upload-section">
+                        <div class="file-upload-title">📁 Téléversez vos documents (PDF, JPG, JPEG, PNG)</div>
+                        
+                        <div class="file-upload-grid">
+                            <div class="file-upload-item">
+                                <label for="passportFile" class="required">Passeport</label>
+                                <input type="file" id="passportFile" name="passportFile" accept=".pdf,.jpg,.jpeg,.png" required>
+                                <div class="file-input-hint">Max 5 MB</div>
+                            </div>
+
+                            <div class="file-upload-item">
+                                <label for="photoFile" class="required">Photo d'identité</label>
+                                <input type="file" id="photoFile" name="photoFile" accept=".pdf,.jpg,.jpeg,.png" required>
+                                <div class="file-input-hint">Max 5 MB</div>
+                            </div>
+
+                            <div class="file-upload-item">
+                                <label for="bankFile" class="required">Relevés bancaires</label>
+                                <input type="file" id="bankFile" name="bankFile" accept=".pdf,.jpg,.jpeg,.png" required>
+                                <div class="file-input-hint">Max 5 MB</div>
+                            </div>
+
+                            <div class="file-upload-item">
+                                <label for="workFile" class="required">Attestation de travail</label>
+                                <input type="file" id="workFile" name="workFile" accept=".pdf,.jpg,.jpeg,.png" required>
+                                <div class="file-input-hint">Max 5 MB</div>
+                            </div>
+
+                            <div class="file-upload-item">
+                                <label for="marriageFile">Certificat de mariage</label>
+                                <input type="file" id="marriageFile" name="marriageFile" accept=".pdf,.jpg,.jpeg,.png">
+                                <div class="file-input-hint">Optionnel - Max 5 MB</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Buttons -->
                 <div class="button-group">
                     <button type="submit" class="btn-submit">📤 Soumettre la Demande</button>
@@ -771,10 +884,33 @@
             }
         }
 
-        // Validate form
-        function validateForm(e) {
-            e.preventDefault();
+        // Validate file type
+        function validateFile(fileInput) {
+            const allowedExtensions = ['pdf', 'jpg', 'jpeg', 'png'];
+            const file = fileInput.files[0];
             
+            if (file) {
+                const fileName = file.name.toLowerCase();
+                const fileExtension = fileName.split('.').pop();
+                
+                if (!allowedExtensions.includes(fileExtension)) {
+                    alert('Format de fichier non accepté. Veuillez utiliser PDF, JPG, JPEG ou PNG.');
+                    fileInput.value = '';
+                    return false;
+                }
+                
+                const maxSize = 5 * 1024 * 1024; // 5 MB
+                if (file.size > maxSize) {
+                    alert('Le fichier est trop volumineux. Taille maximale : 5 MB.');
+                    fileInput.value = '';
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // Validate form before submission
+        function validateForm(e) {
             let isValid = true;
             const requiredFields = form.querySelectorAll('[required]');
 
@@ -789,6 +925,15 @@
                         isValid = false;
                         const errorId = field.name + 'Error';
                         const errorElement = document.getElementById(errorId);
+                        if (errorElement) {
+                            errorElement.classList.add('show');
+                        }
+                    }
+                } else if (field.type === 'file') {
+                    if (!field.files || field.files.length === 0) {
+                        isValid = false;
+                        field.classList.add('invalid');
+                        const errorElement = document.getElementById(field.id + 'Error');
                         if (errorElement) {
                             errorElement.classList.add('show');
                         }
@@ -814,8 +959,8 @@
                 }
             });
 
-            if (isValid) {
-                submitForm();
+            if (!isValid) {
+                e.preventDefault();
             }
         }
 
@@ -825,39 +970,23 @@
             return regex.test(email);
         }
 
-        // Submit form
-        function submitForm() {
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData);
-
-            // Log form data to console (in a real scenario, this would be sent to a server)
-            console.log('Données du formulaire soumises:', data);
-
-            // Show success message
-            successMessage.classList.add('show');
-
-            // Scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-
-            // Reset form
-            form.reset();
-
-            // Hide success message after 5 seconds
-            setTimeout(() => {
-                successMessage.classList.remove('show');
-            }, 5000);
-        }
+        // File input validation
+        document.querySelectorAll('input[type="file"]').forEach(fileInput => {
+            fileInput.addEventListener('change', function() {
+                validateFile(this);
+            });
+        });
 
         // Real-time validation
         form.querySelectorAll('input, select, textarea').forEach(field => {
             field.addEventListener('blur', function() {
-                if (this.hasAttribute('required') && !this.value.trim()) {
+                if (this.hasAttribute('required') && !this.value.trim() && this.type !== 'file') {
                     this.classList.add('invalid');
                     const errorElement = document.getElementById(this.id + 'Error');
                     if (errorElement) {
                         errorElement.classList.add('show');
                     }
-                } else {
+                } else if (this.type !== 'file') {
                     this.classList.remove('invalid');
                     const errorElement = document.getElementById(this.id + 'Error');
                     if (errorElement) {
