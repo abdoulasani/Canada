@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horizon Atlas - Formulaire de Demande de Visa Visiteur Canada</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #003d82 0%, #0056b3 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .logo-placeholder {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            border: 2px solid white;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .form-container {
+            padding: 40px 20px;
+        }
+
+        .form-section {
+            margin-bottom: 40px;
+            padding-bottom: 40px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .form-section:last-of-type {
+            border-bottom: none;
+        }
+
+        .section-title {
+            color: #003d82;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #0056b3;
+            display: inline-block;
+        }
+
+        .form-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group.full {
+            grid-template-columns: 1fr;
+        }
+
+        .form-group.half {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media (max-width: 768px) {
+            .form-group.half {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .field-wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .required::after {
+            content: " *";
+            color: #e74c3c;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        input[type="number"],
+        select,
+        textarea {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        input[type="date"]:focus,
+        input[type="number"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #0056b3;
+            box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
+        }
+
+        input[type="text"]:invalid:not(:placeholder-shown),
+        input[type="email"]:invalid:not(:placeholder-shown),
+        input[type="tel"]:invalid:not(:placeholder-shown),
+        input[type="date"]:invalid:not(:placeholder-shown),
+        input[type="number"]:invalid:not(:placeholder-shown) {
+            border-color: #e74c3c;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+            font-family: inherit;
+        }
+
+        .radio-group,
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .radio-option,
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-right: 10px;
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            accent-color: #0056b3;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 14px 40px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #0056b3 0%, #003d82 100%);
+            color: white;
+            min-width: 200px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 86, 179, 0.3);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .btn-reset {
+            background: #e0e0e0;
+            color: #333;
+            min-width: 200px;
+        }
+
+        .btn-reset:hover {
+            background: #d0d0d0;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+            border-left: 4px solid #28a745;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #0056b3;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 3px;
+            color: #003d82;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .header p {
+                font-size: 14px;
+            }
+
+            .form-container {
+                padding: 20px;
+            }
+
+            .form-group {
+                gap: 15px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn-submit,
+            .btn-reset {
+                width: 100%;
+            }
+
+            .section-title {
+                font-size: 18px;
+            }
+        }
+
+        .field-hint {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            border-top: 1px solid #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-placeholder">🌍</div>
+            <h1>Horizon Atlas</h1>
+            <p>Formulaire de Demande de Visa Visiteur Canada</p>
+        </div>
+
+        <!-- Form Container -->
+        <div class="form-container">
+            <div class="success-message" id="successMessage">
+                ✓ Votre demande a été soumise avec succès. Nous vous contacterons sous peu.
+            </div>
+
+            <form id="visaForm" onsubmit="handleSubmit(event)">
+                <div class="info-box">
+                    ℹ️ Les champs marqués d'un astérisque (<span style="color: #e74c3c;">*</span>) sont obligatoires.
+                </div>
+
+                <!-- Section 1: Informations Personnelles -->
+                <div class="form-section">
+                    <h2 class="section-title">1. Informations Personnelles</h2>
+                    
+                    <div class="form-group">
+                        <div class="field-wrapper">
+                            <label for="fullName" class="required">Nom complet</label>
+                            <input type="text" id="fullName" name="fullName" required placeholder="Ex: Jean Dupont">
+                            <div class="error-message" id="fullNameError">Ce champ est obligatoire</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group half">
+                        <div class="field-wrapper">
+                            <label for="birthDate" class="required">Date de naissance</label>
+                            <input type="date" id="birthDate" name="birthDate" required>
+                            <div class="error-message" id="birthDateError">Ce champ est obligatoire</div>
+                        </div>
+                        <div class="field-wrapper">
+                            <label for="birthCity" class="required">Ville de naissance</label>
+                            <input type="text" id="birthCity" name="birthCity" required placeholder="Ex: Dakar">
+                            <div class="error-message" id="birthCityError">Ce champ est obligatoire</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group half">
+                        <div class="field-wrapper">
+                            <label for="birthCountry" class="required">Pays de naissance</label>
+                            <input type="text" id="birthCountry" name="birthCountry" required placeholder="Ex: Sénégal">
+                            <div class="error-message" id="birthCountryError">Ce champ est obligatoire</div>
+                        </div>
+                        <div class="field-wrapper">
+                            <label for="nationality" class="required">Nationalité</label>
+                            <input type="text" id="nationality" name="nationality" required placeholder="Ex: Sénégalaise">
+                            <div class="error-message" id="nationalityError">Ce champ est obligatoire</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="field-wrapper">
+                            <label for="maritalStatus" class="required">État matrimonial</label>
+                            <select id="maritalStatus" name="maritalStatus" required>
+                                <option value="">-- Sélectionner --</option>
+                                <option value="celibataire">Célibataire</option>
+                                <option value="marie">Marié(e)</option>
+                                <option value="divorce">Divorcé(e)</option>
+                                <option value="veuf">Veuf(ve)</option>
+                            </select>
+                            <div class="error-message" id="maritalStatusError">Ce champ est obligatoire</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: Informations du Passeport -->
+                <div class="form-section">
+                    <h2 class="section-title">2. Informations du Passeport</h2>
+                    
+                    <div class="form-group half">
+                        <div class="field-wrapper">
+                            <label for="passportNumber" class="required">Numéro du passeport</label>
+                            <input type="text" id="passportNumber" name="passportNumber" required placeholder="Ex: AB123456">
+                            <div class="error-message" id="passportNumberError">Ce champ est obligatoire</div>
+                        </div>
+                        <div class="field-wrapper">
+                            <label for="passportIssueDate" class="required">Date de délivrance</label>
+                            <input type="date" id="passportIssueDate" name="passportIssueDate" required>
+                            <div class="error-message" id="passportIssueDateError">Ce champ est obligatoire</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group half">
+                        <div class="field-wrapper">
+                            <label for="passportExpiryDate" class="required">Date d'expiration</label>
+                            <input type="date" id="passportExpiryDate" name="passportExpiryDate" required>
+                            <div class="error-message" id="passportExpiryDateError">Ce champ est obligatoire</div>
+                        </div>
+                        <div class="field-wrapper">
+                            <label for="passportCountry" class="required">Pays de délivrance</label>
+                            <input type="text" id="passportCountry" name="passportCountry" required placeholder="Ex: Sénégal">
+                            <div class="error-message" id="passportCountryError">Ce champ est obligatoire</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: Coordonnées -->
+                <div class="form-section">
+                    <h2 class="section-title">3. Coordonnées</h2>
+                    
+                    <div class="form-group">
+                        <div class="field-wrapper">
+                            <label for="address" class="required">Adresse complète</label>
+                            <input type="text" id="address" name="address" required placeholder="Ex: 123 Rue de la Paix, Dakar">
+                            <div class="error-message" id="addressError">Ce champ est obligatoire</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group half">
+                        <div class="field-wrapper">
+                            <label for="phone" class="required">Téléphone</label>
+                            <input type="tel" id="phone" name="phone" required placeholder="Ex: +221771234567">
+                            <div class="error-message" id="phoneError">Ce champ est obligatoire</div>
+                        </div>
+                        <div class="field-wrapper">
+                            <label for="whatsapp">WhatsApp</label>
+                            <input type="tel" id="whatsapp" name="whatsapp" placeholder="Ex: +221771234567">
+                            <div class="field-hint">Optionnel - Si différent du téléphone</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="field-wrapper">
+                            <label for="email" class="required">Adresse e-mail</label>
+                            <input type="email" id="email" name="email" required placeholder="Ex: nom@exemple.com">
+                            <div class="error-message" id="emailError">Veuillez entrer une adresse e-mail valide</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 4: Informations Familiales -->
+                <div class="form-section">
+                    <h2 class="section-title">4. Informations Familiales</h2>
+                    
+                    <div class="form-group half">
+                        <div class="field-wrapper">
+                            <label for="fatherName" class="required">Nom complet du père</label>
+                            <input type="text" id="fatherName" name="fatherName" required placeholder="Ex: Pierre Dupont">
+                            <div class="error-message" id="fatherNameError">Ce champ est obligatoire</div>
+                        </div>
+                        <div class="field-wrapper">
+                            <label for="fatherBirthDate" class="required">Date de naissance du père</label>
+                            <input type="date" id="fatherBirthDate" name="fatherBirthDate" required>
+                            <div class="error-message" id="fatherBirthDateError">Ce champ est obligatoire</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group half">
+                        <div class="field-wrapper">
+                            <label for="motherName" class="required">Nom complet de la mère</label>
+                            <input type="text" id="motherName" name="motherName" required placeholder="Ex: Marie Dupont">
+                            <div class="error-message" id="motherNameError">Ce champ est obligatoire</div>
+                        </div>
+                        <div class="field-wrapper">
+                            <label for="motherBirthDate" class="required">Date de naissance de la mère</label>
+                            <input type="date" id="motherBirthDate" name="motherBirthDate" required>
+                            <div class="error-message" id="motherBirthDateError">Ce champ est obligatoire</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 5: Études -->
+                <div class="form-section">
+                    <h2 class="section-title">5. Études</h2>
+                    
+                    <div class="form-group">
+                        <div class="field-wrapper">
+                            <label for="educationLevel" class="required">Niveau d'études</label>
+                            <select id="educationLevel" name="educationLevel" required>
+                                <option value="">-- Sélectionner --</option>
+                                <option value="primaire">Primaire</option>
+                                <option value="secondaire">Secondaire</option>
+                                <option value="bac">Baccalauréat</option>
+                                <option value="licence">Licence / Bac+3</option>
+                                <option value="master">Master / Bac+5</option>
+                                <option value="doctorat">Doctorat / Bac+8</option>
+                                <option value="autre">Autre</option>
+                            </select>
+                            <div class="error-message" id="educationLevelError">Ce champ est obligatoire</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group half">
+                        <div class="field-wrapper">
+                            <label for="studyField" class="required">Domaine d'études</label>
+                            <input type="text" id="studyField" name="studyField" required placeholder="Ex: Informatique">
+                            <div class="error-message" id="studyFieldError">Ce champ est obligatoire</div>
+                        </div>
+                        <div class="field-wrapper">
+                            <label for="institution" class="required">Établissement fréquenté</label>
+                            <input type="text" id="institution" name="institution" required placeholder="Ex: Université de Dakar">
+                            <div class="error-message" id="institutionError">Ce champ est obligatoire</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 6: Activité Professionnelle -->
+                <div class="form-section">
+                    <h2 class="section-title">6. Activité Professionnelle</h2>
+                    
+                    <div class="form-group">
+                        <div class="field-wrapper">
+                            <label for="profession" class="required">Profession actuelle</label>
+                            <input type="text" id="profession" name="profession" required placeholder="Ex: Ingénieur en informatique">
+                            <div class="error-message" id="professionError">Ce champ est obligatoire</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group half">
+                        <div class="field-wrapper">
+                            <label for="company" class="required">Nom de l'entreprise ou du commerce</label>
+                            <input type="text" id="company" name="company" required placeholder="Ex: Tech Solutions SA">
+                            <div class="error-message" id="companyError">Ce champ est obligatoire</div>
+                        </div>
+                        <div class="field-wrapper">
+                            <label for="monthlyIncome" class="required">Revenu mensuel (en USD ou EUR)</label>
+                            <input type="number" id="monthlyIncome" name="monthlyIncome" required placeholder="Ex: 2500" min="0">
+                            <div class="error-message" id="monthlyIncomeError">Ce champ est obligatoire</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 7: Informations sur le Voyage -->
+                <div class="form-section">
+                    <h2 class="section-title">7. Informations sur le Voyage</h2>
+                    
+                    <div class="form-group">
+                        <div class="field-wrapper">
+                            <label for="travelPurpose" class="required">Motif du voyage</label>
+                            <select id="travelPurpose" name="travelPurpose" required>
+                                <option value="">-- Sélectionner --</option>
+                                <option value="tourisme">Tourisme</option>
+                                <option value="visite_famille">Visite familiale</option>
+                                <option value="affaires">Affaires</option>
+                                <option value="conference">Conférence / Séminaire</option>
+                                <option value="etudes">Études</option>
+                                <option value="autre">Autre</option>
+                            </select>
+                            <div class="error-message" id="travelPurposeError">Ce champ est obligatoire</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group half">
+                        <div class="field-wrapper">
+                            <label for="departureDate" class="required">Date prévue du départ</label>
+                            <input type="date" id="departureDate" name="departureDate" required>
+                            <div class="error-message" id="departureDateError">Ce champ est obligatoire</div>
+                        </div>
+                        <div class="field-wrapper">
+                            <label for="stayDuration" class="required">Durée du séjour (en jours)</label>
+                            <input type="number" id="stayDuration" name="stayDuration" required placeholder="Ex: 30" min="1">
+                            <div class="error-message" id="stayDurationError">Ce champ est obligatoire</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="field-wrapper">
+                            <label for="canadaCities" class="required">Ville(s) à visiter au Canada</label>
+                            <input type="text" id="canadaCities" name="canadaCities" required placeholder="Ex: Toronto, Vancouver, Montréal">
+                            <div class="field-hint">Séparez les villes par des virgules</div>
+                            <div class="error-message" id="canadaCitiesError">Ce champ est obligatoire</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="field-wrapper">
+                            <label for="canadaAddress" class="required">Adresse de séjour au Canada</label>
+                            <input type="text" id="canadaAddress" name="canadaAddress" required placeholder="Ex: 123 Main Street, Toronto, ON">
+                            <div class="error-message" id="canadaAddressError">Ce champ est obligatoire</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 8: Historique de Voyage -->
+                <div class="form-section">
+                    <h2 class="section-title">8. Historique de Voyage</h2>
+                    
+                    <div class="form-group">
+                        <div class="field-wrapper">
+                            <label for="visitedCountries" class="required">Pays visités au cours des 10 dernières années</label>
+                            <textarea id="visitedCountries" name="visitedCountries" required placeholder="Ex: France (2020-2021), Belgique (2019), États-Unis (2018)"></textarea>
+                            <div class="field-hint">Mentionnez le pays et les années de visite</div>
+                            <div class="error-message" id="visitedCountriesError">Ce champ est obligatoire</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 9: Antécédents de Visa -->
+                <div class="form-section">
+                    <h2 class="section-title">9. Antécédents de Visa</h2>
+                    
+                    <div class="form-group">
+                        <div class="field-wrapper">
+                            <label class="required">Avez-vous déjà obtenu un visa Canada ?</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="canadaVisaYes" name="canadaVisa" value="oui" required>
+                                    <label for="canadaVisaYes">Oui</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="canadaVisaNo" name="canadaVisa" value="non" required>
+                                    <label for="canadaVisaNo">Non</label>
+                                </div>
+                            </div>
+                            <div class="error-message" id="canadaVisaError">Ce champ est obligatoire</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="field-wrapper">
+                            <label class="required">Avez-vous déjà subi un refus de visa ?</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="visaRefusalYes" name="visaRefusal" value="oui" required onchange="toggleRefusalDetails()">
+                                    <label for="visaRefusalYes">Oui</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="visaRefusalNo" name="visaRefusal" value="non" required onchange="toggleRefusalDetails()">
+                                    <label for="visaRefusalNo">Non</label>
+                                </div>
+                            </div>
+                            <div class="error-message" id="visaRefusalError">Ce champ est obligatoire</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="refusalDetailsGroup" style="display: none;">
+                        <div class="field-wrapper">
+                            <label for="refusalCountry">Si oui, préciser le pays</label>
+                            <input type="text" id="refusalCountry" name="refusalCountry" placeholder="Ex: États-Unis, France">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 10: Informations Complémentaires -->
+                <div class="form-section">
+                    <h2 class="section-title">10. Informations Complémentaires</h2>
+                    
+                    <div class="form-group">
+                        <div class="field-wrapper">
+                            <label for="comments">Commentaires ou informations additionnelles</label>
+                            <textarea id="comments" name="comments" placeholder="Veuillez ajouter toute information pertinente pour votre demande..."></textarea>
+                            <div class="field-hint">Optionnel</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="button-group">
+                    <button type="submit" class="btn-submit">📤 Soumettre la Demande</button>
+                    <button type="reset" class="btn-reset">🔄 Réinitialiser le Formulaire</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>&copy; 2026 Horizon Atlas. Tous les droits réservés. | Nous traitons vos informations de manière confidentielle et sécurisée.</p>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('visaForm');
+        const successMessage = document.getElementById('successMessage');
+
+        // Toggle refusal details visibility
+        function toggleRefusalDetails() {
+            const refusalYes = document.getElementById('visaRefusalYes');
+            const detailsGroup = document.getElementById('refusalDetailsGroup');
+            
+            if (refusalYes.checked) {
+                detailsGroup.style.display = 'grid';
+            } else {
+                detailsGroup.style.display = 'none';
+            }
+        }
+
+        // Validate form
+        function validateForm(e) {
+            e.preventDefault();
+            
+            let isValid = true;
+            const requiredFields = form.querySelectorAll('[required]');
+
+            // Clear previous error messages
+            document.querySelectorAll('.error-message').forEach(msg => msg.classList.remove('show'));
+
+            requiredFields.forEach(field => {
+                if (field.type === 'radio') {
+                    const radioGroup = document.getElementsByName(field.name);
+                    const isChecked = Array.from(radioGroup).some(radio => radio.checked);
+                    if (!isChecked) {
+                        isValid = false;
+                        const errorId = field.name + 'Error';
+                        const errorElement = document.getElementById(errorId);
+                        if (errorElement) {
+                            errorElement.classList.add('show');
+                        }
+                    }
+                } else if (field.type === 'email') {
+                    if (!field.value.trim() || !isValidEmail(field.value)) {
+                        isValid = false;
+                        field.classList.add('invalid');
+                        const errorElement = document.getElementById(field.id + 'Error');
+                        if (errorElement) {
+                            errorElement.classList.add('show');
+                        }
+                    }
+                } else {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.classList.add('invalid');
+                        const errorElement = document.getElementById(field.id + 'Error');
+                        if (errorElement) {
+                            errorElement.classList.add('show');
+                        }
+                    }
+                }
+            });
+
+            if (isValid) {
+                submitForm();
+            }
+        }
+
+        // Validate email format
+        function isValidEmail(email) {
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return regex.test(email);
+        }
+
+        // Submit form
+        function submitForm() {
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+
+            // Log form data to console (in a real scenario, this would be sent to a server)
+            console.log('Données du formulaire soumises:', data);
+
+            // Show success message
+            successMessage.classList.add('show');
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Reset form
+            form.reset();
+
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 5000);
+        }
+
+        // Real-time validation
+        form.querySelectorAll('input, select, textarea').forEach(field => {
+            field.addEventListener('blur', function() {
+                if (this.hasAttribute('required') && !this.value.trim()) {
+                    this.classList.add('invalid');
+                    const errorElement = document.getElementById(this.id + 'Error');
+                    if (errorElement) {
+                        errorElement.classList.add('show');
+                    }
+                } else {
+                    this.classList.remove('invalid');
+                    const errorElement = document.getElementById(this.id + 'Error');
+                    if (errorElement) {
+                        errorElement.classList.remove('show');
+                    }
+                }
+            });
+
+            field.addEventListener('focus', function() {
+                this.classList.remove('invalid');
+            });
+        });
+
+        // Form submission
+        form.addEventListener('submit', validateForm);
+    </script>
+</body>
+</html>
